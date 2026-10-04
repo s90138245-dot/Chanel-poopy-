@@ -55,6 +55,8 @@ footer{text-align:center; padding:30px; opacity:.85}
 .lock{font-size:13px; background:#ff3d8122; border:1px solid #ff3d81; padding:8px 12px; border-radius:12px; margin-bottom:8px}
 .reply-box{background:#00e5ff18; border:1px solid var(--accent2); border-radius:12px; padding:10px; margin-top:8px; font-size:14px; line-height:1.9}
 .admin-panel{background:#ffcc0020; border:1px dashed #ffcc00; border-radius:12px; padding:10px; margin:8px 0;}
+.giscus{margin-top:10px}
+.giscus-frame{border-radius:12px}
 </style>
 </head>
 <body>
@@ -92,6 +94,7 @@ footer{text-align:center; padding:30px; opacity:.85}
 <button class="btn" onclick="sendAI()">ارسال 🚀</button>
 </div></section>
 <section id="comments"><h2 class="sec">💬 نظرات</h2><div class="card">
+<p style="font-size:13px;opacity:.8">⚠️ این باکس پایینی فقط روی همین گوشی ذخیره میشه. برای نظر عمومی که مالکوم ببینه، از باکس «نظرات عمومی» پایین استفاده کن 👇</p>
 <input id="cn" placeholder="اسمت">
 <textarea id="ct" placeholder="نظرت..."></textarea>
 <button class="btn btn2" onclick="addC()">ثبت نظر ✅</button>
@@ -107,11 +110,14 @@ footer{text-align:center; padding:30px; opacity:.85}
 </div>
 <div id="clist"></div>
 </div></section>
+<section id="public-comments"><h2 class="sec">💬 نظرات عمومی (همه می‌بینن) 🌍</h2><div class="card">
+<p style="text-align:center">نظرت رو اینجا بنویس، مالکوم می‌بینه! 👑<br><small style="opacity:.7">با اکانت گیت‌هاب وارد شو و نظر بده</small></p>
+<div class="giscus"></div>
+</div></section>
 <footer><a href="#fehrest" style="color:#00e5ff">⬆️ برگشت به فهرست</a><br><br>© 2026 @poopy_play_time_harley_sawyer 🌌</footer>
 <script>
-// ===== تنظیمات مالک — این ۲ خط را عوض کن =====
-var ADMIN_EMAIL = "youremail@gmail.com"; // ایمیل خودت را بذار تا نظرها به ایمیلت بیاید
-var ADMIN_KEY = "harley123"; // کلید ورود مالک — این را عوض کن و به کسی نگو
+var ADMIN_EMAIL = "youremail@gmail.com";
+var ADMIN_KEY = "harley123";
 var API_KEY = "sk-2rVec8YNjEnpG1eAVDTQbfpo4N0mSo7UgBTALRRdrEkQZsw6";
 var SYSTEM_PROMPT = "تو دکتر هارلی سایر، متخصص دنیای Poppy Playtime هستی. فقط درباره پاپی پلی تایم جواب بده. همیشه فارسی و باحال جواب بده.";
 var isAdmin = false;
@@ -198,7 +204,6 @@ document.getElementById("qbox").innerHTML="<h2>"+msg+"</h2><h3>امتیاز نه
 }
 function restartQuiz(){ qi=0; sc=0; showQ(); }
 showQ();
-// ===== نظرات + پاسخ مالک =====
 function getComments(){
 try{ return JSON.parse(localStorage.getItem("cm")||"[]"); }catch(e){ return []; }
 }
@@ -213,9 +218,6 @@ saveComments(a);
 ren();
 document.getElementById("ct").value="";
 document.getElementById("cstatus").innerText="✅ نظرت ثبت شد!";
-if(ADMIN_EMAIL.indexOf("@")>-1 && ADMIN_EMAIL!=="youremail@gmail.com"){
-fetch("https://formsubmit.co/ajax/"+ADMIN_EMAIL,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify({name:n,message:t,_subject:"نظر جدید در سایت پاپی پلی تایم 🌌"})}).then(function(){ document.getElementById("cstatus").innerText="✅ نظرت ثبت شد و برای مالک ارسال شد!"; }).catch(function(){});
-}
 }
 function adminLogin(){
 var v=document.getElementById("adminkey").value;
@@ -279,8 +281,6 @@ box.scrollTop=box.scrollHeight;
 }
 document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key==="Enter") sendAI(); });
 </script>
-<h2 style="text-align:center;">💬 نظرات بقیه</h2>
-<p style="text-align:center;">نظرت رو بنویس، مالکوم می‌بینه!</p>
 <script src="https://giscus.app/client.js"
         data-repo="s90138245-dot/Chanel-poopy-"
         data-repo-id="R_kgDOU6RWVw"
@@ -295,5 +295,6 @@ document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key
         data-lang="fa"
         crossorigin="anonymous"
         async>
-  </script></body>
-</html>
+</script>
+</body>
+        </html>
