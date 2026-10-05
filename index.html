@@ -21,8 +21,10 @@ header h1{margin:0; font-size:16px; text-shadow:0 0 15px var(--accent)}
 .theme-box{display:flex; gap:6px; align-items:center; flex-wrap:wrap}
 .theme-box button{background:#15164a; color:#fff; border:1px solid var(--accent2); padding:7px 12px; border-radius:20px; cursor:pointer; font-size:13px}
 body.light .theme-box button{background:#eee; color:#111}
+.userbox{display:flex; align-items:center; gap:6px; font-size:13px}
 .hero{text-align:center; padding:55px 20px; background:linear-gradient(135deg,rgba(181,55,255,.6),rgba(0,229,255,.4)); border:2px solid var(--accent2); margin:14px; border-radius:28px; box-shadow:0 0 40px var(--accent)}
 .btn{background:linear-gradient(45deg,#b537ff,#ff3d81); color:#fff; border:none; padding:11px 22px; border-radius:30px; cursor:pointer; text-decoration:none; display:inline-block; margin:6px; font-weight:bold}
+.btn:disabled{opacity:.6; cursor:wait}
 .btn2{background:linear-gradient(45deg,#00e5ff,#00ff88); color:#000}
 .btn-rubika{background:linear-gradient(45deg,#7b2ff7,#00d4ff); color:#fff}
 .btn-small{padding:6px 14px; font-size:13px; margin:3px;}
@@ -40,7 +42,7 @@ input,textarea{width:100%; padding:12px; border-radius:12px; border:1px solid va
 body.light input,body.light textarea{background:#fff; color:#111}
 #chatBox{height:300px; overflow:auto; background:rgba(0,0,0,.5); border-radius:12px; padding:10px; border:1px solid var(--accent2)}
 body.light #chatBox{background:#f2f4ff}
-.msg{padding:9px 13px; border-radius:14px; margin:6px 0; max-width:88%; line-height:1.9; font-size:14px}
+.msg{padding:9px 13px; border-radius:14px; margin:6px 0; max-width:88%; line-height:1.9; font-size:14px; white-space:pre-wrap}
 .me{background:linear-gradient(45deg,#ff3d81,#b537ff); margin-right:auto; color:#fff}
 .bot{background:#15164a; border:1px solid #00e5ff; color:#fff}
 body.light .bot{background:#fff; color:#111; border-color:#7b2ff7}
@@ -64,6 +66,10 @@ footer{text-align:center; padding:30px; opacity:.85}
 <header>
 <div class="topbar">
 <h1>🌌 پاپی پلی تایم | @poopy_play_time_harley_sawyer</h1>
+<div class="userbox">
+<span id="user-info"></span>
+<button id="login-btn" class="btn btn-small" type="button">ورود با گوگل</button>
+</div>
 <div class="theme-box">
 <span style="font-size:13px">🎨 تم:</span>
 <button onclick="setTheme('')">🌌 کهکشانی</button>
@@ -112,15 +118,34 @@ footer{text-align:center; padding:30px; opacity:.85}
 </div></section>
 <section id="public-comments"><h2 class="sec">💬 نظرات عمومی (همه می‌بینن) 🌍</h2><div class="card">
 <p style="text-align:center">نظرت رو اینجا بنویس، مالکوم می‌بینه! 👑<br><small style="opacity:.7">با اکانت گیت‌هاب وارد شو و نظر بده</small></p>
-<div class="giscus"></div>
+<div class="giscus">
+<script src="https://giscus.app/client.js"
+data-repo="s90138245-dot/Chanel-poopy-"
+data-repo-id="R_kgDOU6RWVw"
+data-category="Announcements"
+data-category-id="DIC_kwDOU6RWV84DHArY"
+data-mapping="pathname"
+data-strict="0"
+data-reactions-enabled="1"
+data-emit-metadata="0"
+data-input-position="bottom"
+data-theme="transparent_dark"
+data-lang="fa"
+crossorigin="anonymous"
+async></script>
+</div>
 </div></section>
 <footer><a href="#fehrest" style="color:#00e5ff">⬆️ برگشت به فهرست</a><br><br>© 2026 @poopy_play_time_harley_sawyer 🌌</footer>
+
 <script>
+// ⚠️ ایمیل گوگل خودت رو اینجا بنویس (با این ایمیل وارد شی، خودکار مالک میشی)
 var ADMIN_EMAIL = "youremail@gmail.com";
 var ADMIN_KEY = "harley123";
-var API_KEY = "sk-2rVec8YNjEnpG1eAVDTQbfpo4N0mSo7UgBTALRRdrEkQZsw6";
+// ⚠️ کلید قدیمی لو رفته بود. کلید جدید بساز و اینجا بذار (بهتر: از سرور واسطه استفاده کن)
+var API_KEY = "";
 var SYSTEM_PROMPT = "تو دکتر هارلی سایر، متخصص دنیای Poppy Playtime هستی. فقط درباره پاپی پلی تایم جواب بده. همیشه فارسی و باحال جواب بده.";
-var isAdmin = false;
+var isAdmin = false, googleAdmin = false;
+function esc(s){ return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];}); }
 try{ if(localStorage.getItem("isAdmin")==="1") isAdmin=true; }catch(e){}
 function setTheme(t){ document.body.className = t; try{ localStorage.setItem("siteTheme", t); }catch(e){} }
 try{ var st = localStorage.getItem("siteTheme") || ""; if(st) document.body.className = st; }catch(e){}
@@ -221,12 +246,13 @@ document.getElementById("cstatus").innerText="✅ نظرت ثبت شد!";
 }
 function adminLogin(){
 var v=document.getElementById("adminkey").value;
-if(v===ADMIN_KEY){ isAdmin=true; try{localStorage.setItem("isAdmin","1");}catch(e){} updateAdminUI(); ren(); alert("خوش اومدی مالک! 👑 حالا می‌تونی جواب بدی."); }
+if(v===ADMIN_KEY){ isAdmin=true; try{localStorage.setItem("isAdmin","1");}catch(e){} ren(); alert("خوش اومدی مالک! 👑 حالا می‌تونی جواب بدی."); }
 else{ alert("کلید اشتباه است!"); }
 }
-function adminLogout(){ isAdmin=false; try{localStorage.removeItem("isAdmin");}catch(e){} updateAdminUI(); ren(); }
+function adminLogout(){ isAdmin=false; try{localStorage.removeItem("isAdmin");}catch(e){} ren(); }
 function updateAdminUI(){
-document.getElementById("adminStatus").innerText = isAdmin ? "👑 حالت مالک فعال است. می‌توانی جواب بدهی و حذف کنی." : "حالت مهمان هستی. فقط مالک می‌تواند جواب بدهد.";
+var on = isAdmin || googleAdmin;
+document.getElementById("adminStatus").innerText = on ? "👑 حالت مالک فعال است. می‌توانی جواب بدهی و حذف کنی." : "حالت مهمان هستی. فقط مالک می‌تواند جواب بدهد.";
 document.getElementById("logoutBtn").style.display = isAdmin ? "inline-block" : "none";
 }
 function sendReply(i){
@@ -246,128 +272,92 @@ ren();
 }
 function ren(){
 updateAdminUI();
+var on = isAdmin || googleAdmin;
 var a=getComments();
 var h="";
 for(var i=a.length-1;i>=0;i--){
-var realIndex=i;
-var c=a[realIndex];
+var c=a[i];
 var rh="";
-if(c.reply){ rh="<div class='reply-box'>👑 <b>پاسخ مالک:</b> "+c.reply+"</div>"; }
+if(c.reply){ rh="<div class='reply-box'>👑 <b>پاسخ مالک:</b> "+esc(c.reply)+"</div>"; }
 var adminBtns="";
-if(isAdmin){
-adminBtns="<div style='margin-top:8px;'><input id='replyInput"+realIndex+"' placeholder='پاسخ مالک را بنویس...' style='margin:0'><button class='btn btn2 btn-small' onclick='sendReply("+realIndex+")'>پاسخ دادن ✅</button> <button class='btn btn-small' style='background:#ff3355;' onclick='delComment("+realIndex+")'>حذف 🗑️</button></div>";
+if(on){
+adminBtns="<div style='margin-top:8px;'><input id='replyInput"+i+"' placeholder='پاسخ مالک را بنویس...' style='margin:0'><button class='btn btn2 btn-small' onclick='sendReply("+i+")'>پاسخ دادن ✅</button> <button class='btn btn-small' style='background:#ff3355;' onclick='delComment("+i+")'>حذف 🗑️</button></div>";
 }
-h+="<div class=card><b>"+c.n+":</b> "+c.t+"<br><small style='opacity:.6'>"+(c.time||"")+"</small>"+rh+adminBtns+"</div>";
+h+="<div class=card><b>"+esc(c.n)+":</b> "+esc(c.t)+"<br><small style='opacity:.6'>"+esc(c.time||"")+"</small>"+rh+adminBtns+"</div>";
 }
 if(!h) h="<p style='opacity:.7'>هنوز نظری نیست. اولین نفر باش! 🌌</p>";
 document.getElementById("clist").innerHTML=h;
 }
 ren();
+// این تابع از اسکریپت فایربیس صدا زده میشه
+window.onUser = function(u){
+googleAdmin = !!(u && u.email && u.email.toLowerCase()===ADMIN_EMAIL.toLowerCase());
+ren();
+};
+function addMsg(cls,text){
+var box=document.getElementById("chatBox");
+var d=document.createElement("div");
+d.className="msg "+cls; d.textContent=text;
+box.appendChild(d); box.scrollTop=box.scrollHeight;
+return d;
+}
 function sendAI(){
 var m=document.getElementById("umsg").value.trim();
 if(!m) return;
-var box=document.getElementById("chatBox");
-box.innerHTML+='<div class="msg me">'+m+'</div>';
 document.getElementById("umsg").value="";
-box.innerHTML+='<div class="msg bot" id="tmp">صبر کنید ... 🤔</div>';
-box.scrollTop=box.scrollHeight;
+addMsg("me",m);
+if(!API_KEY){ addMsg("bot","⚠️ کلید هوش مصنوعی تنظیم نشده."); return; }
+var tmp=addMsg("bot","صبر کنید ... 🤔");
 fetch("https://api.gapgpt.app/v1/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+API_KEY,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-4o-mini",messages:[{role:"system",content:SYSTEM_PROMPT},{role:"user",content:m}],temperature:0.7})}).then(function(r){return r.json();}).then(function(d){
-var tmp=document.getElementById("tmp"); if(tmp) tmp.remove();
-var txt="خطا!";
-if(d.choices && d.choices[0] && d.choices[0].message){ txt=d.choices[0].message.content; } else { txt=JSON.stringify(d); }
-box.innerHTML+='<div class="msg bot">'+txt+'</div>';
-box.scrollTop=box.scrollHeight;
-}).catch(function(e){ var tmp2=document.getElementById("tmp"); if(tmp2) tmp2.innerText="خطا در اتصال!"; });
+tmp.remove();
+var txt = (d.choices && d.choices[0] && d.choices[0].message) ? d.choices[0].message.content : "خطا در پاسخ ربات!";
+addMsg("bot",txt);
+}).catch(function(){ tmp.textContent="خطا در اتصال!"; });
 }
 document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key==="Enter") sendAI(); });
 </script>
-<script src="https://giscus.app/client.js"
-        data-repo="s90138245-dot/Chanel-poopy-"
-        data-repo-id="R_kgDOU6RWVw"
-        data-category="Announcements"
-        data-category-id="DIC_kwDOU6RWV84DHArY"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="dark"
-        data-lang="fa"
-        crossorigin="anonymous"
-        async>
-</script>
-<!-- ===== دکمه ورود با گوگل ===== -->
-<div style="text-align: center; margin: 20px;">
-  <button id="login-btn" style="
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: white;
-    color: #333;
-    border: 1px solid #dadce0;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-family: Arial, sans-serif;
-    cursor: pointer;
-  ">
-    <svg width="18" height="18" viewBox="0 0 48 48">
-      <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.8-6.8C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.4 17.7 9.5 24 9.5z"/>
-      <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6C44 38.2 46.5 31.9 46.5 24.5z"/>
-      <path fill="#FBBC05" d="M10.5 28.6c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.9-6.2C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.2z"/>
-      <path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.7-6c-2.1 1.4-4.7 2.3-7.5 2.3-6.3 0-11.6-3.9-13.5-9.4l-7.9 6.2C6.5 42.6 14.6 48 24 48z"/>
-    </svg>
-    ورود با گوگل
-  </button>
-  <p id="user-info" style="font-family: Arial, sans-serif; margin-top: 10px;"></p>
-</div>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import {
-    getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut
-  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "اینجا_دقیقاً_کلید_واقعی_فایربیس_خودت_رو_بذار",
-    authDomain: "poppy-site.firebaseapp.com",
-    projectId: "poppy-site",
-    storageBucket: "poppy-site.firebasestorage.app",
-    messagingSenderId: "782094649428",
-    appId: "1:782094649428:web:08b2fa2264f59beaccc5c1"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBhhnYL02s5rBSF6s0nfcVCk_NaQ3syWLk",
+  authDomain: "poppy-site.firebaseapp.com",
+  projectId: "poppy-site",
+  storageBucket: "poppy-site.firebasestorage.app",
+  messagingSenderId: "782094649428",
+  appId: "1:782094649428:web:08b2fa2264f59beaccc5c1"
+};
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-  const btn = document.getElementById("login-btn");
-  const info = document.getElementById("user-info");
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+const btn = document.getElementById("login-btn");
+const info = document.getElementById("user-info");
+let busy = false;
 
-  const googleSvg = btn.querySelector("svg").outerHTML;
-
-  btn.addEventListener("click", async () => {
-    if (auth.currentUser) {
-      await signOut(auth);
-      return;
+btn.addEventListener("click", async () => {
+  if (busy) return;
+  busy = true; btn.disabled = true;
+  try {
+    if (auth.currentUser) { await signOut(auth); }
+    else { await signInWithPopup(auth, provider); }
+  } catch (e) {
+    if (e.code !== "auth/cancelled-popup-request" && e.code !== "auth/popup-closed-by-user") {
+      console.error(e);
+      alert("خطا: " + e.code);
     }
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error("Login Error:", error);
-      info.textContent = "ورود ناموفق: " + error.code;
-    }
-  });
+  } finally {
+    busy = false; btn.disabled = false;
+  }
+});
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      info.textContent = "سلام، " + (user.displayName || user.email);
-      btn.textContent = "خروج از حساب";
-    } else {
-      info.textContent = "";
-      btn.innerHTML = `${googleSvg} ورود با گوگل`;
-    }
-  });
+onAuthStateChanged(auth, (user) => {
+  info.textContent = user ? "سلام " + (user.displayName || "") : "";
+  btn.textContent = user ? "خروج" : "ورود با گوگل";
+  if (window.onUser) window.onUser(user);
+});
 </script>
 </body>
-        </html>
+</html>
