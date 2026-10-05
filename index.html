@@ -296,5 +296,50 @@ document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key
         crossorigin="anonymous"
         async>
 </script>
+<button id="login-btn">ورود با گوگل</button>
+<p id="user-info"></p>
+
+<script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "GAPGPTMASKTOKENtzwo5nu15ckX0X",
+    authDomain: "poppy-site.firebaseapp.com",
+    projectId: "poppy-site",
+    storageBucket: "poppy-site.firebasestorage.app",
+    messagingSenderId: "782094649428",
+    appId: "1:782094649428:web:08b2fa2264f59beaccc5c1"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider();
+
+  document.getElementById("login-btn").addEventListener("click", async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      document.getElementById("user-info").textContent =
+        `وارد شدی: ${result.user.displayName || result.user.email}`;
+    } catch (error) {
+      console.error(error);
+      alert(`ورود انجام نشد: ${error.code}`);
+    }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      document.getElementById("user-info").textContent =
+        `وارد شدی: ${user.displayName || user.email}`;
+    }
+  });
+</script>
 </body>
         </html>
