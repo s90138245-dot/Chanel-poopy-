@@ -291,81 +291,37 @@ document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key
         data-reactions-enabled="1"
         data-emit-metadata="0"
         data-input-position="bottom"
-        data-theme="transparent_dark"
+        data-theme="dark"
         data-lang="fa"
         crossorigin="anonymous"
         async>
 </script>
-<button id="login-btn">ورود با گوگل</button>
-<p id="user-info"></p>
-
-<script type="module">
-  import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
-  import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "GAPGPTMASKTOKENtzwo5nu15ckX0X",
-    authDomain: "poppy-site.firebaseapp.com",
-    projectId: "poppy-site",
-    storageBucket: "poppy-site.firebasestorage.app",
-    messagingSenderId: "782094649428",
-    appId: "1:782094649428:web:08b2fa2264f59beaccc5c1"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  document.getElementById("login-btn").addEventListener("click", async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      document.getElementById("user-info").textContent =
-        `وارد شدی: ${result.user.displayName || result.user.email}`;
-    } catch (error) {
-      console.error(error);
-      alert(`ورود انجام نشد: ${error.code}`);
-    }
-  });
-
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      document.getElementById("user-info").textContent =
-        `وارد شدی: ${user.displayName || user.email}`;
-    }
-  });
-</script>
 <!-- ===== دکمه ورود با گوگل ===== -->
-<button id="login-btn" style="
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: white;
-  color: #333;
-  border: 1px solid #dadce0;
-  border-radius: 8px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-family: Arial, sans-serif;
-  cursor: pointer;
-  margin: 20px auto;
-">
-  <svg width="18" height="18" viewBox="0 0 48 48">
-    <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.8-6.8C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.4 17.7 9.5 24 9.5z"/>
-    <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6C44 38.2 46.5 31.9 46.5 24.5z"/>
-    <path fill="#FBBC05" d="M10.5 28.6c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.9-6.2C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.2z"/>
-    <path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.7-6c-2.1 1.4-4.7 2.3-7.5 2.3-6.3 0-11.6-3.9-13.5-9.4l-7.9 6.2C6.5 42.6 14.6 48 24 48z"/>
-  </svg>
-  ورود با گوگل
-</button>
-<p id="user-info" style="text-align:center; font-family: Arial, sans-serif;"></p>
+<div style="text-align: center; margin: 20px;">
+  <button id="login-btn" style="
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: white;
+    color: #333;
+    border: 1px solid #dadce0;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+  ">
+    <svg width="18" height="18" viewBox="0 0 48 48">
+      <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.8-6.8C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.4 17.7 9.5 24 9.5z"/>
+      <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6C44 38.2 46.5 31.9 46.5 24.5z"/>
+      <path fill="#FBBC05" d="M10.5 28.6c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.9-6.2C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.2z"/>
+      <path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.7-6c-2.1 1.4-4.7 2.3-7.5 2.3-6.3 0-11.6-3.9-13.5-9.4l-7.9 6.2C6.5 42.6 14.6 48 24 48z"/>
+    </svg>
+    ورود با گوگل
+  </button>
+  <p id="user-info" style="font-family: Arial, sans-serif; margin-top: 10px;"></p>
+</div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
@@ -374,7 +330,7 @@ document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key
   } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
   const firebaseConfig = {
-    apiKey: "GAPGPTMASKTOKEN0umdbqr2z5rX0X",
+    apiKey: "اینجا_دقیقاً_کلید_واقعی_فایربیس_خودت_رو_بذار",
     authDomain: "poppy-site.firebaseapp.com",
     projectId: "poppy-site",
     storageBucket: "poppy-site.firebasestorage.app",
@@ -388,27 +344,28 @@ document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key
   const btn = document.getElementById("login-btn");
   const info = document.getElementById("user-info");
 
+  const googleSvg = btn.querySelector("svg").outerHTML;
+
   btn.addEventListener("click", async () => {
     if (auth.currentUser) {
       await signOut(auth);
       return;
     }
     try {
-      const result = await signInWithPopup(auth, provider);
-      info.textContent = "سلام " + (result.user.displayName || result.user.email);
+      await signInWithPopup(auth, provider);
     } catch (error) {
-      console.error(error);
+      console.error("Login Error:", error);
       info.textContent = "ورود ناموفق: " + error.code;
     }
   });
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      info.textContent = "سلام " + (user.displayName || user.email);
+      info.textContent = "سلام، " + (user.displayName || user.email);
       btn.textContent = "خروج از حساب";
     } else {
       info.textContent = "";
-      btn.innerHTML = btn.innerHTML.includes("svg") ? btn.innerHTML : `<svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.8-6.8C35.6 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.2C12.4 13.4 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.7 6C44 38.2 46.5 31.9 46.5 24.5z"/><path fill="#FBBC05" d="M10.5 28.6c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6l-7.9-6.2C.9 16.4 0 20.1 0 24s.9 7.6 2.6 10.8l7.9-6.2z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.6l-7.7-6c-2.1 1.4-4.7 2.3-7.5 2.3-6.3 0-11.6-3.9-13.5-9.4l-7.9 6.2C6.5 42.6 14.6 48 24 48z"/></svg> ورود با گوگل`;
+      btn.innerHTML = `${googleSvg} ورود با گوگل`;
     }
   });
 </script>
