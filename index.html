@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پاپی پلی تایم کهکشانی | @poopy_play_time_harley_sawyer</title>
+<style>
+:root{--bg:#050514; --card:rgba(25,27,70,.92); --text:#fff; --accent:#b537ff; --accent2:#00e5ff;}
+*{box-sizing:border-box; font-family:Vazirmatn,Tahoma; transition:.3s}
+body{margin:0; background:var(--bg); color:var(--text);}
+body.light{--bg:#eef2ff; --card:#ffffff; --text:#0a0a25; --accent:#7b2ff7; --accent2:#00aaff;}
+body.horror{--bg:#0d0000; --card:#2a0a0a; --text:#ffe5e5; --accent:#ff1a1a; --accent2:#ff8800;}
+body.forest{--bg:#02120a; --card:#0c2b1a; --text:#e6ffe9; --accent:#00ff88; --accent2:#b6ff00;}
+body.candy{--bg:#20051a; --card:#3d0f33; --text:#fff0f8; --accent:#ff3d81; --accent2:#ffcc00;}
+body.ocean{--bg:#01131f; --card:#0a2e44; --text:#e6fbff; --accent:#00e5ff; --accent2:#0066ff;}
+.stars{position:fixed; inset:0; z-index:-1; background:radial-gradient(2px 2px at 20% 30%, #fff, transparent),radial-gradient(2px 2px at 40% 70%, #fff, transparent),radial-gradient(1.5px 1.5px at 60% 20%, #00e5ff, transparent),radial-gradient(2px 2px at 80% 50%, #ff3d81, transparent);}
+header{position:sticky; top:0; z-index:20; backdrop-filter:blur(15px); background:rgba(10,10,40,.9); border-bottom:2px solid var(--accent); padding:10px 12px;}
+body.light header{background:rgba(255,255,255,.9);}
+.topbar{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px}
+header h1{margin:0; font-size:16px; text-shadow:0 0 15px var(--accent)}
+.theme-box{display:flex; gap:6px; align-items:center; flex-wrap:wrap}
+.theme-box button{background:#15164a; color:#fff; border:1px solid var(--accent2); padding:7px 12px; border-radius:20px; cursor:pointer; font-size:13px}
+body.light .theme-box button{background:#eee; color:#111}
+.hero{text-align:center; padding:55px 20px; background:linear-gradient(135deg,rgba(181,55,255,.6),rgba(0,229,255,.4)); border:2px solid var(--accent2); margin:14px; border-radius:28px; box-shadow:0 0 40px var(--accent)}
+.btn{background:linear-gradient(45deg,#b537ff,#ff3d81); color:#fff; border:none; padding:11px 22px; border-radius:30px; cursor:pointer; text-decoration:none; display:inline-block; margin:6px; font-weight:bold}
+.btn2{background:linear-gradient(45deg,#00e5ff,#00ff88); color:#000}
+.btn-rubika{background:linear-gradient(45deg,#7b2ff7,#00d4ff); color:#fff}
+section{max-width:1050px; margin:18px auto; padding:0 14px; scroll-margin-top:90px}
+.card{background:var(--card); border:1px solid var(--accent); border-radius:20px; padding:16px; margin:12px 0; box-shadow:0 0 25px rgba(181,55,255,.3)}
+h2.sec{border-right:6px solid var(--accent2); padding-right:10px}
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px}
+.char{text-align:center}
+.char img{width:100%; height:200px; object-fit:cover; border-radius:14px; border:2px solid var(--accent2); background:#000}
+.char label{display:inline-block; margin-top:8px; background:#15164a; border:1px dashed var(--accent2); padding:8px 12px; border-radius:12px; cursor:pointer; font-size:13px; color:#fff}
+.char input[type=file]{display:none}
+.char .info{font-size:13.5px; line-height:1.9; text-align:right; background:#00000040; border-radius:12px; padding:10px; margin-top:8px}
+.badge{display:inline-block; font-size:12px; background:var(--accent2); color:#000; border-radius:20px; padding:2px 10px; margin:2px; font-weight:bold}
+input,textarea{width:100%; padding:12px; border-radius:12px; border:1px solid var(--accent2); margin:6px 0; background:#0a0a2a; color:#fff}
+body.light input,body.light textarea{background:#fff; color:#111}
+#chatBox{height:300px; overflow:auto; background:rgba(0,0,0,.5); border-radius:12px; padding:10px; border:1px solid var(--accent2)}
+body.light #chatBox{background:#f2f4ff}
+.msg{padding:9px 13px; border-radius:14px; margin:6px 0; max-width:88%; line-height:1.9; font-size:14px}
+.me{background:linear-gradient(45deg,#ff3d81,#b537ff); margin-right:auto; color:#fff}
+.bot{background:#15164a; border:1px solid #00e5ff; color:#fff}
+body.light .bot{background:#fff; color:#111; border-color:#7b2ff7}
+.qopt{background:#15164a; border:1px solid #00e5ff; padding:12px; border-radius:12px; margin:7px 0; cursor:pointer; font-size:15px; color:#fff}
+body.light .qopt{background:#fff; color:#111; border-color:#7b2ff7}
+.qopt.correct{background:#00ff88 !important; color:#000 !important; font-weight:bold}
+.qopt.wrong{background:#ff3355 !important; color:#fff !important}
+#qprogress{height:10px; background:#ffffff22; border-radius:20px; overflow:hidden; margin:8px 0}
+#qbar{height:100%; width:0%; background:linear-gradient(90deg,#b537ff,#00e5ff)}
+.toc-list a{display:block; text-decoration:none; color:var(--text); padding:10px 12px; background:#ffffff10; border:1px solid var(--accent2); border-radius:12px; margin:6px 0}
+footer{text-align:center; padding:30px; opacity:.85}
+.lock{font-size:13px; background:#ff3d8122; border:1px solid #ff3d81; padding:8px 12px; border-radius:12px; margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="stars"></div>
+<header>
+<div class="topbar">
+<h1>🌌 پاپی پلی تایم | @poopy_play_time_harley_sawyer</h1>
+<div class="theme-box">
+<span style="font-size:13px">🎨 تم:</span>
+<button onclick="setTheme('')">🌌 کهکشانی</button>
+<button onclick="setTheme('light')">☀️ روشن</button>
+<button onclick="setTheme('horror')">🔥 ترسناک</button>
+<button onclick="setTheme('forest')">🌲 جنگلی</button>
+<button onclick="setTheme('candy')">🍬 کندی</button>
+<button onclick="setTheme('ocean')">🌊 اقیانوسی</button>
+</div>
+</div>
+</header>
+<div class="hero"><h2>به کهکشان Playtime Co خوش اومدی!</h2><p>سایت رسمی کانال تلگرام و روبیکا poopy_play_time_harley_sawyer</p><a class="btn" href="https://t.me/poopy_play_time_harley_sawyer" target="_blank">💜 تلگرام</a><a class="btn btn-rubika" href="https://rubika.ir/poopy_play_time_harley_sawyer" target="_blank">📱 روبیکا</a></div>
+<section id="fehrest"><h2 class="sec">📑 فهرست کامل</h2><div class="card toc-list"><a href="#owner">۱. 👑 مالک سایت</a><a href="#chars">۲. 👾 شخصیت‌ها + انتخاب عکس</a><a href="#chapters">۳. 📖 چپتر ۱ تا ۴</a><a href="#dl">۴. ⬇️ دانلود</a><a href="#quiz">۵. 🧠 آزمون</a><a href="#ai">۶. 🤖 هوش مصنوعی فقط پاپی پلی تایم</a><a href="#comments">۷. 💬 نظرات</a></div></section>
+<section id="owner"><h2 class="sec">👑 مالک - من!</h2><div class="card"><h3>🧪 هارلی سایر | مالک @poopy_play_time_harley_sawyer</h3><p>سلام! من مالک کانال تلگرام و روبیکام.</p><a class="btn" href="https://t.me/poopy_play_time_harley_sawyer" target="_blank">تلگرام 📩</a><a class="btn btn-rubika" href="https://rubika.ir/poopy_play_time_harley_sawyer" target="_blank">روبیکا 📱</a><div style="text-align:center"><img id="ownerImg" style="width:150px;height:150px;border-radius:50%;object-fit:cover;border:3px solid #00e5ff;display:none"><br><label style="background:#15164a;border:1px dashed #00e5ff;padding:8px 14px;border-radius:12px;cursor:pointer;color:#fff">📸 انتخاب عکس مالک<input type="file" id="ownerFile" accept="image/*" style="display:none"></label></div></div></section>
+<section id="chars"><h2 class="sec">👾 بخش شخصیت‌ها</h2><div class="grid" id="charGrid"></div></section>
+<section id="chapters"><h2 class="sec">📖 همه چپترها</h2>
+<div class="card"><h3>🌑 چپتر ۱: A Tight Squeeze</h3><p>ده سال بعد از ناپدید شدن کارمندها برمی‌گردی به کارخانه. هاگی واگی دنبالت می‌کند. پاپی را آزاد می‌کنی و سوار قطار فرار می‌شوی. راز اصلی: کارخانه روی انسان‌ها آزمایش می‌کرده.</p></div>
+<div class="card"><h3>🕸️ چپتر ۲: Fly in a Web</h3><p>بازی‌های مامی لانگ لگز در Game Station. سه بازی Musical Memory و Whack-a-Wuggy و Statues. مرگ مامی توسط پروتوتایپ و گرفتن دست سبز.</p></div>
+<div class="card"><h3>😴 چپتر ۳: Deep Sleep</h3><p>یتیم‌خانه Playcare، کت‌نپ و گاز خواب، داگ‌دی و میس دیلایت. راز دکتر هارلی سایر و Hour of Joy لو می‌رود.</p></div>
+<div class="card"><h3>🔥 چپتر ۴: Safe Haven</h3><p>نبرد با دکتر سایر رباتیک، انفجار کارخانه، فداکاری کیسی و سقوط به اعماق. همه منتظر چپتر ۵ هستند.</p></div>
+</section>
+<section id="dl"><h2 class="sec">⬇️ دانلود همه چپترها</h2><div class="card"><p>🖥️ <a href="https://store.steampowered.com/app/1721470/Poppy_Playtime/" target="_blank" style="color:#00e5ff">استیم</a> | 📱 <a href="https://play.google.com/store/search?q=poppy%20playtime&c=apps" target="_blank" style="color:#00e5ff">گوگل‌پلی</a></p><a class="btn" href="https://t.me/poopy_play_time_harley_sawyer" target="_blank">دانلود از تلگرام 🚀</a><a class="btn btn-rubika" href="https://rubika.ir/poopy_play_time_harley_sawyer" target="_blank">دانلود از روبیکا 📱</a></div></section>
+<section id="quiz"><h2 class="sec">🧠 آزمون پاپی پلی تایم</h2><div class="card"><div id="qprogress"><div id="qbar"></div></div><p id="qinfo">سوال ۱ از ۱۰ | امتیاز: ۰</p><div id="qbox"></div><button class="btn btn2" onclick="restartQuiz()">🔄 شروع دوباره</button></div></section>
+<section id="ai"><h2 class="sec">🤖 هوش مصنوعی فقط پاپی پلی تایم</h2><div class="card">
+<div class="lock">🔒 این ربات فقط درباره پاپی پلی تایم، چپترها، شخصیت‌ها و تئوری‌ها جواب می‌دهد.</div>
+<div id="chatBox"><div class="msg bot">سلام! من دکتر سایر هستم 🌌 فقط درباره پاپی پلی تایم بپرس! مثلا بگو کت نپ کیه؟</div></div>
+<input id="umsg" placeholder="فقط درباره پاپی پلی تایم بپرس...">
+<button class="btn" onclick="sendAI()">ارسال 🚀</button>
+</div></section>
+<section id="comments"><h2 class="sec">💬 نظرات</h2><div class="card"><input id="cn" placeholder="اسمت"><textarea id="ct" placeholder="نظرت..."></textarea><button class="btn btn2" onclick="addC()">ثبت نظر</button><p id="cstatus" style="font-size:13px"></p><div id="clist"></div></div></section>
+<footer><a href="#fehrest" style="color:#00e5ff">⬆️ برگشت به فهرست</a><br><br>© 2026 @poopy_play_time_harley_sawyer 🌌</footer>
+<script>
+// ===== تنظیمات مالک =====
+var ADMIN_EMAIL = "youremail@gmail.com"; // <-- اینو عوض کن و ایمیل خودت رو بذار
+var API_KEY = "sk-2rVec8YNjEnpG1eAVDTQbfpo4N0mSo7UgBTALRRdrEkQZsw6";
+var SYSTEM_PROMPT = "تو دکتر هارلی سایر، متخصص دنیای Poppy Playtime هستی. فقط درباره پاپی پلی تایم جواب بده. اگر موضوع دیگری پرسید بگو: ببخشید! من فقط درباره پاپی پلی تایم جواب میدم. همیشه فارسی و باحال جواب بده.";
+function setTheme(t){ document.body.className = t; try{ localStorage.setItem("siteTheme", t); }catch(e){} }
+try{ var st = localStorage.getItem("siteTheme") || ""; if(st) document.body.className = st; }catch(e){}
+var CHARS = [
+{id:"huggy",name:"هاگی واگی Huggy Wuggy",emoji:"💙",tag:"چپتر ۱ | هیولا",desc:"قد ۵ متری آبی با بغل مرگبار. آخر چپتر ۱ سقوط می‌کند ولی تئوری‌ها می‌گویند زنده است."},
+{id:"kissy",name:"کیسی میسی Kissy Missy",emoji:"💋",tag:"متحد | صورتی",desc:"نسخه صورتی و مهربان هاگی. در چپتر ۲ و ۴ به بازیکن کمک می‌کند."},
+{id:"mommy",name:"مامی لانگ لگز",emoji:"🕷️",tag:"باس چپتر ۲",desc:"مامان عنکبوتی صورتی با بدن کشسان. آخر توسط پروتوتایپ کشته می‌شود."},
+{id:"catnap",name:"کت‌نپ CatNap",emoji:"🐱",tag:"باس چپتر ۳",desc:"گربه بنفش خدای خواب. گاز خواب‌آور می‌زند و خادم پروتوتایپ است."},
+{id:"dogday",name:"داگ‌دی DogDay",emoji:"🐶",tag:"قهرمان | نارنجی",desc:"سگ نارنجی رهبر اسمایلینگ کریترز و دوست بازیکن."},
+{id:"poppy",name:"پاپی Poppy",emoji:"🎀",tag:"کلید راز",desc:"عروسک دختر باهوش. نقشه نابودی پروتوتایپ را دارد."},
+{id:"harley",name:"دکتر هارلی سایر",emoji:"🧠",tag:"مغز متفکر",desc:"دانشمند دیوانه کارخانه و خالق پروتوتایپ. در چپتر ۴ رباتیک برمی‌گردد."},
+{id:"proto",name:"پروتوتایپ 1006",emoji:"👹",tag:"دشمن نهایی",desc:"آزمایش ۱۰۰۶. خطرناک‌ترین موجود کارخانه با دست قلابی."},
+{id:"delight",name:"میس دیلایت",emoji:"👩‍🏫",tag:"چپتر ۳ | معلم",desc:"معلم مدرسه پلی‌کر. با خط‌کش حمله می‌کند."},
+{id:"crafty",name:"کرفتی کورن",emoji:"🦄",tag:"اسمایلینگ",desc:"تک‌شاخ سفید هنرمند. با دود بنفش اذیت می‌کند."}
+];
+function renderChars(){
+var saved = {};
+try{ saved = JSON.parse(localStorage.getItem("charImgs")||"{}"); }catch(e){ saved={}; }
+var html = "";
+for(var k=0;k<CHARS.length;k++){
+var c = CHARS[k];
+var img = saved[c.id] ? '<img src="'+saved[c.id]+'">' : '<div style="font-size:55px">'+c.emoji+'</div>';
+html += '<div class="card char">'+img+'<h3>'+c.name+'</h3><span class="badge">'+c.tag+'</span><div class="info">'+c.desc+'</div><label>📸 انتخاب عکس '+c.name+'<input type="file" accept="image/*" onchange="upImg(event,\''+c.id+'\')"></label></div>';
+}
+document.getElementById("charGrid").innerHTML = html;
+}
+function upImg(e,id){
+var f = e.target.files[0]; if(!f) return;
+var r = new FileReader();
+r.onload = function(){
+var s = {};
+try{ s = JSON.parse(localStorage.getItem("charImgs")||"{}"); }catch(e){ s={}; }
+s[id]=r.result;
+try{ localStorage.setItem("charImgs",JSON.stringify(s)); }catch(e){ alert("حجم عکس زیاد است!"); return; }
+renderChars();
+};
+r.readAsDataURL(f);
+}
+renderChars();
+var oi = null;
+try{ oi = localStorage.getItem("ownerImg"); }catch(e){}
+if(oi){ var im=document.getElementById("ownerImg"); im.src=oi; im.style.display="inline-block"; }
+document.getElementById("ownerFile").onchange=function(e){
+var f=e.target.files[0]; if(!f) return;
+var r=new FileReader();
+r.onload=function(){ try{localStorage.setItem("ownerImg",r.result);}catch(e){} var im2=document.getElementById("ownerImg"); im2.src=r.result; im2.style.display="inline-block"; };
+r.readAsDataURL(f);
+};
+var Q=[
+{q:"هاگی واگی چه رنگی است؟",o:["آبی","قرمز","سبز","صورتی"],a:0},
+{q:"باس اصلی چپتر ۲ کیست؟",o:["کت‌نپ","مامی لانگ لگز","داگ‌دی","پروتوتایپ"],a:1},
+{q:"دکتر هارلی سایر چه کسی است؟",o:["نگهبان","دانشمند و خالق آزمایش‌ها","عروسک","بازیکن"],a:1},
+{q:"قدرت کت‌نپ چیست؟",o:["گاز خواب‌آور","آتش","پرواز","نامرئی شدن"],a:0},
+{q:"شماره آزمایش پروتوتایپ؟",o:["1006","1170","1222","1000"],a:0},
+{q:"کیسی میسی چه رنگی است؟",o:["صورتی","آبی","بنفش","زرد"],a:0},
+{q:"داگ‌دی رهبر کدام گروه است؟",o:["Smiling Critters","Nightmare","Toys","Scientists"],a:0},
+{q:"میس دیلایت چه شغلی دارد؟",o:["معلم","دکتر","نگهبان","راننده"],a:0},
+{q:"اولی چگونه کمک می‌کند؟",o:["با تلفن","با تفنگ","با ماشین","با جادو"],a:0},
+{q:"نام کارخانه چیست؟",o:["Playtime Co","Poppy Factory","Horror Co","Toy House"],a:0}
+];
+var qi=0,sc=0,locked=false;
+function showQ(){
+locked=false;
+var v=Q[qi];
+document.getElementById("qinfo").innerText="سوال "+(qi+1)+" از "+Q.length+" | امتیاز: "+sc;
+document.getElementById("qbar").style.width=(qi/Q.length*100)+"%";
+var h="<h3>"+v.q+"</h3>";
+for(var i=0;i<v.o.length;i++){ h+='<div class="qopt" id="opt'+i+'" onclick="ans('+i+')">'+v.o[i]+'</div>'; }
+document.getElementById("qbox").innerHTML=h;
+}
+function ans(i){
+if(locked) return; locked=true;
+var v=Q[qi];
+document.getElementById("opt"+v.a).classList.add("correct");
+if(i===v.a){ sc+=10; } else { document.getElementById("opt"+i).classList.add("wrong"); }
+document.getElementById("qinfo").innerText="سوال "+(qi+1)+" از "+Q.length+" | امتیاز: "+sc;
+setTimeout(function(){ qi++; if(qi>=Q.length){ finishQuiz(); } else { showQ(); } },800);
+}
+function finishQuiz(){
+document.getElementById("qbar").style.width="100%";
+var msg = sc>=80 ? "🏆 تو استاد پاپی پلی تایم هستی!" : (sc>=50 ? "👏 خوب بود! یکم دیگه مونده!" : "💪 باید بیشتر بازی کنی!");
+document.getElementById("qbox").innerHTML="<h2>"+msg+"</h2><h3>امتیاز نهایی: "+sc+" از 100</h3>";
+}
+function restartQuiz(){ qi=0; sc=0; showQ(); }
+showQ();
+// ===== سیستم نظرات با ارسال به ایمیل مالک =====
+function addC(){
+var n=document.getElementById("cn").value||"ناشناس";
+var t=document.getElementById("ct").value.trim();
+if(!t){ alert("نظرت رو بنویس!"); return; }
+var a=[];
+try{ a=JSON.parse(localStorage.getItem("cm")||"[]"); }catch(e){ a=[]; }
+a.push({n:n,t:t,time:new Date().toLocaleString("fa-IR")});
+try{localStorage.setItem("cm",JSON.stringify(a));}catch(e){}
+ren();
+document.getElementById("ct").value="";
+document.getElementById("cstatus").innerText="✅ نظرت ثبت شد!";
+// ارسال به ایمیل مالک بدون نیاز به تلگرام
+if(ADMIN_EMAIL.indexOf("@")>-1 && ADMIN_EMAIL!=="youremail@gmail.com"){
+fetch("https://formsubmit.co/ajax/"+ADMIN_EMAIL,{
+method:"POST",
+headers:{"Content-Type":"application/json","Accept":"application/json"},
+body:JSON.stringify({name:n,message:t,_subject:"نظر جدید در سایت پاپی پلی تایم 🌌",_template:"table"})
+}).then(function(){ document.getElementById("cstatus").innerText="✅ نظرت ثبت شد و برای مالک ارسال شد!"; })
+.catch(function(){});
+} else {
+document.getElementById("cstatus").innerText="✅ نظرت ثبت شد! (مالک: ایمیلت را در کد بذار تا نظرها بهت ایمیل شود)";
+}
+}
+function ren(){
+var a=[];
+try{ a=JSON.parse(localStorage.getItem("cm")||"[]"); }catch(e){ a=[]; }
+var h="";
+for(var i=a.length-1;i>=0;i--){ h+="<div class=card><b>"+a[i].n+":</b> "+a[i].t+"<br><small style='opacity:.6'>"+(a[i].time||"")+"</small></div>"; }
+document.getElementById("clist").innerHTML=h;
+}
+ren();
+function sendAI(){
+var m=document.getElementById("umsg").value.trim();
+if(!m) return;
+var box=document.getElementById("chatBox");
+box.innerHTML+='<div class="msg me">'+m+'</div>';
+document.getElementById("umsg").value="";
+box.innerHTML+='<div class="msg bot" id="tmp">صبر کنید ... 🤔</div>';
+box.scrollTop=box.scrollHeight;
+fetch("https://api.gapgpt.app/v1/chat/completions",{method:"POST",headers:{"Authorization":"Bearer "+API_KEY,"Content-Type":"application/json"},body:JSON.stringify({model:"gpt-4o-mini",messages:[{role:"system",content:SYSTEM_PROMPT},{role:"user",content:m}],temperature:0.7})}).then(function(r){return r.json();}).then(function(d){
+var tmp=document.getElementById("tmp"); if(tmp) tmp.remove();
+var txt="خطا!";
+if(d.choices && d.choices[0] && d.choices[0].message){ txt=d.choices[0].message.content; } else { txt=JSON.stringify(d); }
+box.innerHTML+='<div class="msg bot">'+txt+'</div>';
+box.scrollTop=box.scrollHeight;
+}).catch(function(e){ var tmp2=document.getElementById("tmp"); if(tmp2) tmp2.innerText="خطا در اتصال! دوباره تلاش کن."; });
+}
+document.getElementById("umsg").addEventListener("keydown",function(e){ if(e.key==="Enter") sendAI(); });
+</script>
+</body>
+  </html>
