@@ -52,6 +52,7 @@ body.light .qopt{background:#fff; color:#111; border-color:#7b2ff7}
 .toc-list a{display:block; text-decoration:none; color:var(--text); padding:10px 12px; background:#ffffff10; border:1px solid var(--accent2); border-radius:12px; margin:6px 0}
 footer{text-align:center; padding:30px; opacity:.85}
 .lock{font-size:13px; background:#ff3d8122; border:1px solid #ff3d81; padding:8px 12px; border-radius:12px; margin-bottom:8px}
+#disqus_thread{background:#fff; border-radius:12px; padding:12px; min-height:200px;}
 </style>
 </head>
 <body>
@@ -88,11 +89,22 @@ footer{text-align:center; padding:30px; opacity:.85}
 <input id="umsg" placeholder="فقط درباره پاپی پلی تایم بپرس...">
 <button class="btn" onclick="sendAI()">ارسال 🚀</button>
 </div></section>
-<section id="comments"><h2 class="sec">💬 نظرات</h2><div class="card"><input id="cn" placeholder="اسمت"><textarea id="ct" placeholder="نظرت..."></textarea><button class="btn btn2" onclick="addC()">ثبت نظر</button><p id="cstatus" style="font-size:13px"></p><div id="clist"></div></div></section>
+<section id="comments"><h2 class="sec">💬 نظرات</h2><div class="card"><div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = 'https://s90138245-dot.github.io/Chanel-poopy-/';
+this.page.identifier = 'poopy-main-page';
+};
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://poppyplaytimekzowoqo.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div></section>
 <footer><a href="#fehrest" style="color:#00e5ff">⬆️ برگشت به فهرست</a><br><br>© 2026 @poopy_play_time_harley_sawyer 🌌</footer>
 <script>
-// ===== تنظیمات مالک =====
-var ADMIN_EMAIL = "youremail@gmail.com"; // <-- اینو عوض کن و ایمیل خودت رو بذار
 var API_KEY = "sk-2rVec8YNjEnpG1eAVDTQbfpo4N0mSo7UgBTALRRdrEkQZsw6";
 var SYSTEM_PROMPT = "تو دکتر هارلی سایر، متخصص دنیای Poppy Playtime هستی. فقط درباره پاپی پلی تایم جواب بده. اگر موضوع دیگری پرسید بگو: ببخشید! من فقط درباره پاپی پلی تایم جواب میدم. همیشه فارسی و باحال جواب بده.";
 function setTheme(t){ document.body.className = t; try{ localStorage.setItem("siteTheme", t); }catch(e){} }
@@ -179,38 +191,6 @@ document.getElementById("qbox").innerHTML="<h2>"+msg+"</h2><h3>امتیاز نه
 }
 function restartQuiz(){ qi=0; sc=0; showQ(); }
 showQ();
-// ===== سیستم نظرات با ارسال به ایمیل مالک =====
-function addC(){
-var n=document.getElementById("cn").value||"ناشناس";
-var t=document.getElementById("ct").value.trim();
-if(!t){ alert("نظرت رو بنویس!"); return; }
-var a=[];
-try{ a=JSON.parse(localStorage.getItem("cm")||"[]"); }catch(e){ a=[]; }
-a.push({n:n,t:t,time:new Date().toLocaleString("fa-IR")});
-try{localStorage.setItem("cm",JSON.stringify(a));}catch(e){}
-ren();
-document.getElementById("ct").value="";
-document.getElementById("cstatus").innerText="✅ نظرت ثبت شد!";
-// ارسال به ایمیل مالک بدون نیاز به تلگرام
-if(ADMIN_EMAIL.indexOf("@")>-1 && ADMIN_EMAIL!=="youremail@gmail.com"){
-fetch("https://formsubmit.co/ajax/"+ADMIN_EMAIL,{
-method:"POST",
-headers:{"Content-Type":"application/json","Accept":"application/json"},
-body:JSON.stringify({name:n,message:t,_subject:"نظر جدید در سایت پاپی پلی تایم 🌌",_template:"table"})
-}).then(function(){ document.getElementById("cstatus").innerText="✅ نظرت ثبت شد و برای مالک ارسال شد!"; })
-.catch(function(){});
-} else {
-document.getElementById("cstatus").innerText="✅ نظرت ثبت شد! (مالک: ایمیلت را در کد بذار تا نظرها بهت ایمیل شود)";
-}
-}
-function ren(){
-var a=[];
-try{ a=JSON.parse(localStorage.getItem("cm")||"[]"); }catch(e){ a=[]; }
-var h="";
-for(var i=a.length-1;i>=0;i--){ h+="<div class=card><b>"+a[i].n+":</b> "+a[i].t+"<br><small style='opacity:.6'>"+(a[i].time||"")+"</small></div>"; }
-document.getElementById("clist").innerHTML=h;
-}
-ren();
 function sendAI(){
 var m=document.getElementById("umsg").value.trim();
 if(!m) return;
