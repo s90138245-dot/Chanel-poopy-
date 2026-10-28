@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>پاپی پلی‌تایم کهکشانی | poopy_play_time_harley_sawyer</title>
+<meta name="description" content="سایت رسمی کانال پاپی پلی‌تایم هارلی سایر - شخصیت‌ها، چپترها، آزمون و هوش مصنوعی">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loader"><div class="load-box"><div class="load-emoji">🌌</div><div class="load-bar"><div></div></div><p>در حال ورود به کارخانه Playtime...</p></div></div>
+<canvas id="galaxy"></canvas>
+<div class="cursor" id="cursor"></div>
+<header>
+<div class="topbar">
+<div class="logo">🌌 <b>پاپی پلی‌تایم</b><small>@poopy_play_time_harley_sawyer</small></div>
+<nav class="nav">
+<a href="#fehrest">فهرست</a>
+<a href="#chars">شخصیت‌ها</a>
+<a href="#chapters">چپترها</a>
+<a href="#quiz">آزمون</a>
+<a href="#ai">هوش مصنوعی</a>
+</nav>
+<div class="theme-box">
+<button onclick="setTheme('')" title="کهکشانی">🌌</button>
+<button onclick="setTheme('light')" title="روشن">☀️</button>
+<button onclick="setTheme('horror')" title="ترسناک">🔥</button>
+<button onclick="setTheme('forest')" title="جنگلی">🌲</button>
+<button onclick="setTheme('candy')" title="کندی">🍬</button>
+<button onclick="setTheme('ocean')" title="اقیانوسی">🌊</button>
+</div>
+</div>
+</header>
+<div class="hero">
+<div class="hero-badge">✨ نسخه کهکشانی ۲٫۰ ✨</div>
+<h1>به کارخانه <span class="grad">Playtime Co</span> خوش اومدی!</h1>
+<p id="typing"></p>
+<p class="hero-sub">سایت رسمی کانال تلگرام و روبیکا poopy_play_time_harley_sawyer</p>
+<div>
+<a class="btn" href="https://t.me/poopy_play_time_harley_sawyer" target="_blank">💜 تلگرام</a>
+<a class="btn btn-rubika" href="https://rubika.ir/poopy_play_time_harley_sawyer" target="_blank">📱 روبیکا</a>
+<a class="btn btn2" href="#quiz">🧠 شروع آزمون</a>
+</div>
+<div class="stats">
+<div><b>12</b><span>شخصیت</span></div>
+<div><b>4</b><span>چپتر</span></div>
+<div><b>15</b><span>سوال آزمون</span></div>
+<div><b>6</b><span>تم رنگی</span></div>
+</div>
+</div>
+<section id="fehrest"><h2 class="sec">📑 فهرست کامل</h2><div class="card toc-list">
+<a href="#owner">۱. 👑 مالک سایت - هارلی سایر</a>
+<a href="#chars">۲. 👾 شخصیت‌ها + مودال و انتخاب عکس</a>
+<a href="#chapters">۳. 📖 تایم‌لاین چپتر ۱ تا ۴</a>
+<a href="#dl">۴. ⬇️ دانلود و سیستم موردنیاز</a>
+<a href="#quiz">۵. 🧠 آزمون با تایمر و رکورد</a>
+<a href="#ai">۶. 🤖 هوش مصنوعی آفلاین پاپی</a>
+<a href="#comments">۷. 💬 نظرات</a>
+</div></section>
+<section id="owner"><h2 class="sec">👑 مالک - من!</h2><div class="card owner-card">
+<div class="owner-img-wrap"><img id="ownerImg" style="display:none" alt="مالک"><div id="ownerEmoji" style="font-size:70px">🧪</div></div>
+<div><h3>🧪 هارلی سایر | مالک @poopy_play_time_harley_sawyer</h3>
+<p>سلام! من مالک کانال تلگرام و روبیکام. عاشق تئوری‌های پروتوتایپ و رازهای کارخانه‌ام. هر هفته ویدیو، تئوری و اخبار چپتر ۵ رو می‌ذارم.</p>
+<div class="owner-btns"><a class="btn" href="https://t.me/poopy_play_time_harley_sawyer" target="_blank">تلگرام 📩</a><a class="btn btn-rubika" href="https://rubika.ir/poopy_play_time_harley_sawyer" target="_blank">روبیکا 📱</a></div>
+<label class="up-label">📸 انتخاب عکس مالک<input type="file" id="ownerFile" accept="image/*" hidden></label>
+</div></div></section>
+<section id="chars"><h2 class="sec">👾 شخصیت‌ها - بزن روشون!</h2>
+<div class="card">
+<input id="charSearch" placeholder="🔍 جست‌وجوی شخصیت... مثلا کت‌نپ">
+<div class="filters">
+<button class="fbtn active" onclick="filterChar('all',this)">همه</button>
+<button class="fbtn" onclick="filterChar('boss',this)">👹 باس‌ها</button>
+<button class="fbtn" onclick="filterChar('ally',this)">💙 متحدها</button>
+<button class="fbtn" onclick="filterChar('smile',this)">🌈 اسمایلینگ</button>
+</div>
+<div class="grid" id="charGrid"></div>
+</div></section>
+<div id="charModal" class="modal"><div class="modal-box"><span class="close" onclick="closeModal()">✕</span><div id="modalBody"></div></div></div>
+<section id="chapters"><h2 class="sec">📖 تایم‌لاین همه چپترها</h2>
+<div class="timeline">
+<div class="card tl"><div class="tl-emoji">🌑</div><h3>چپتر ۱: A Tight Squeeze</h3><span class="badge">سال ۲۰۰۵ - شروع کابوس</span><p>۱۰ سال بعد از ناپدید شدن کارمندها برمی‌گردی به کارخانه. هاگی دنبالت می‌کنه، پاپی رو آزاد می‌کنی و با قطار فرار می‌کنی. راز اصلی: کارخانه روی بچه‌ها آزمایش می‌کرده.</p><div class="secret">🔎 راز: نوار VHS راز Hour of Joy رو لو میده</div></div>
+<div class="card tl"><div class="tl-emoji">🕸️</div><h3>چپتر ۲: Fly in a Web</h3><span class="badge">مامی لانگ لگز - باس</span><p>بازی‌های مرگبار Game Station: موزیکال مموری، واک-ا-واگی و مجسمه‌ها. آخرش مامی توسط پروتوتایپ کشته می‌شه و دست سبز رو می‌گیری.</p><div class="secret">🔎 راز: دست پروتوتایپ از دریچه دیده می‌شه!</div></div>
+<div class="card tl"><div class="tl-emoji">😴</div><h3>چپتر ۳: Deep Sleep</h3><span class="badge">کت‌نپ - پلی‌کر</span><p>یتیم‌خونه Playcare، گاز خواب کت‌نپ، داگ‌دی زندانی و میس دیلایت ترسناک. راز دکتر سایر و Hour of Joy کامل لو میره و اولی کمکت می‌کنه.</p><div class="secret">🔎 راز: کت‌نپ خادم پروتوتایپه، نه دشمن اصلی</div></div>
+<div class="card tl"><div class="tl-emoji">🔥</div><h3>چپتر ۴: Safe Haven</h3><span class="badge">دکتر سایر برمی‌گرده!</span><p>نبرد با دکتر سایر رباتیک، انفجار کارخانه، فداکاری یارنبی و سقوط به اعماق. کیسی نجاتت میده و همه منتظر چپتر ۵ هستن.</p><div class="secret">🔎 راز: آزمایش ۱۰۰۶ هنوز زنده‌ست...</div></div>
+</div></section>
+<section id="dl"><h2 class="sec">⬇️ دانلود همه چپترها</h2><div class="card dl-card">
+<p>🖥️ <a href="https://store.steampowered.com/app/1721470/Poppy_Playtime/" target="_blank">نسخه استیم PC</a> | 📱 <a href="https://play.google.com/store/search?q=poppy%20playtime&c=apps" target="_blank">نسخه اندروید گوگل‌پلی</a></p>
+<table class="req"><tr><th>قطعه</th><th>حداقل سیستم</th></tr><tr><td>رم</td><td>8 گیگ</td></tr><tr><td>گرافیک</td><td>GTX 1060</td></tr><tr><td>حجم</td><td>20 گیگ</td></tr></table>
+<div><a class="btn" href="https://t.me/poopy_play_time_harley_sawyer" target="_blank">دانلود از تلگرام 🚀</a><a class="btn btn-rubika" href="https://rubika.ir/poopy_play_time_harley_sawyer" target="_blank">دانلود از روبیکا 📱</a></div>
+</div></section>
+<section id="quiz"><h2 class="sec">🧠 آزمون خفن پاپی</h2><div class="card">
+<div id="qprogress"><div id="qbar"></div></div>
+<div class="qtop"><p id="qinfo">سوال ۱ از ۱۵ | امتیاز: ۰</p><p id="best">🏆 رکورد: ۰</p></div>
+<div id="qtimer"><div id="qtimerbar"></div></div>
+<div id="qbox"></div>
+<button class="btn btn2" onclick="restartQuiz()">🔄 شروع دوباره</button>
+</div></section>
+<section id="ai"><h2 class="sec">🤖 هوش مصنوعی پاپی - بدون فیلترشکن!</h2><div class="card">
+<div class="lock">🔒 فقط درباره پاپی پلی‌تایم جواب میدم. بدون اینترنت هم کار می‌کنم!</div>
+<div class="chips">
+<button onclick="quickAsk('کت نپ کیه؟')">کت‌نپ کیه؟</button>
+<button onclick="quickAsk('پروتوتایپ کیه؟')">پروتوتایپ؟</button>
+<button onclick="quickAsk('چپتر ۴ چی شد؟')">چپتر ۴؟</button>
+<button onclick="quickAsk('هاگی واگی مرد؟')">هاگی مرد؟</button>
+</div>
+<div id="chatBox"><div class="msg bot">سلام! من دکتر سایر هستم 🌌 فقط درباره پاپی پلی‌تایم بپرس!</div></div>
+<div class="chat-row"><input id="umsg" placeholder="فقط درباره پاپی بپرس..."><button class="btn" onclick="sendAI()">ارسال 🚀</button></div>
+</div></section>
+<section id="comments"><h2 class="sec">💬 نظرات</h2><div class="card"><div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = 'https://s90138245-dot.github.io/Chanel-poopy-/';
+this.page.identifier = 'poopy-main-page';
+};
+(function() {
+var d = document, s = d.createElement('script');
+s.src = 'https://poppyplaytimekzowoqo.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments.</noscript>
+</div></section>
+<footer><a href="#fehrest">⬆️ برگشت به فهرست</a><br><br>© 2026 @poopy_play_time_harley_sawyer 🌌 | ساخته‌شده با 💜 برای فن‌های پاپی</footer>
+<button id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</button>
+<script src="script.js"></script>
+</body>
+</html>
